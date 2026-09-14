@@ -1,0 +1,77 @@
+.completionboard-card {
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: .75rem;
+    padding: 1.25rem;
+    max-width: 44rem;
+    background: var(--bs-body-bg, #fff);
+}
+
+.completionboard-card-label {
+    font-size: .875rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.completionboard-status {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: .4rem .75rem;
+    font-weight: 600;
+}
+
+.completionboard-status-notcompleted {
+    background: var(--bs-secondary-bg, #e9ecef);
+}
+
+.completionboard-status-completed {
+    background: var(--bs-warning-bg-subtle, #fff3cd);
+}
+
+.completionboard-status-validated {
+    background: var(--bs-success-bg-subtle, #d1e7dd);
+}
+
+.completionboard-meta {
+    margin-top: .75rem;
+    color: var(--bs-secondary-color, #6c757d);
+}
+
+.completionboard-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    align-items: stretch;
+}
+
+.completionboard-summary-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 10rem;
+    padding: 1rem;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: .75rem;
+    text-decoration: none;
+    color: inherit;
+    background: var(--bs-body-bg, #fff);
+}
+
+.completionboard-summary-item:hover {
+    text-decoration: none;
+}
+
+.completionboard-summary-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: .35rem;
+}
+
+.completionboard-summary-all {
+    align-self: center;
+    padding: .75rem;
+}
+
+.completionboard-report-table .singlebutton {
+    margin: 0;
+}
