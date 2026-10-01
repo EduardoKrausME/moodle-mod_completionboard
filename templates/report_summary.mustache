@@ -23,22 +23,22 @@
     }
 }}
 <div class="completionboard-summary mb-4">
-    <a class="completionboard-summary-item" href="{{notcompletedurl}}">
+    <a class="completionboard-summary-item" href="{{{notcompletedurl}}}">
         <span class="completionboard-summary-number">{{notcompleted}}</span>
         <span>{{#str}}statusnotcompleted, completionboard{{/str}}</span>
     </a>
 
-    <a class="completionboard-summary-item" href="{{completedurl}}">
+    <a class="completionboard-summary-item" href="{{{completedurl}}}">
         <span class="completionboard-summary-number">{{completed}}</span>
         <span>{{#str}}awaitingvalidation, completionboard{{/str}}</span>
     </a>
 
-    <a class="completionboard-summary-item" href="{{validatedurl}}">
+    <a class="completionboard-summary-item" href="{{{validatedurl}}}">
         <span class="completionboard-summary-number">{{validated}}</span>
         <span>{{#str}}statusvalidated, completionboard{{/str}}</span>
     </a>
 
-    <a class="completionboard-summary-all" href="{{allurl}}">
+    <a class="completionboard-summary-all" href="{{{allurl}}}">
         {{#str}}showall, completionboard{{/str}}
     </a>
 </div>
