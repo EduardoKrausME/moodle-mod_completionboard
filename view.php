@@ -22,6 +22,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_completionboard\event\course_module_viewed;
+use mod_completionboard\manager;
+
 require_once("../../config.php");
 require_once($CFG->libdir . "/completionlib.php");
 
@@ -36,7 +39,7 @@ $context = context_module::instance($cm->id);
 require_capability("mod/completionboard:view", $context);
 
 $activity = $DB->get_record("completionboard", ["id" => $cm->instance], "*", MUST_EXIST);
-$manager = new \mod_completionboard\manager($activity, $cm, $course);
+$manager = new manager($activity, $cm, $course);
 
 $PAGE->set_url("/mod/completionboard/view.php", ["id" => $cm->id]);
 $PAGE->set_title(format_string($activity->name));
@@ -44,7 +47,7 @@ $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_cm($cm, $course, $activity);
 
-$event = \mod_completionboard\event\course_module_viewed::create([
+$event = course_module_viewed::create([
     "objectid" => $activity->id,
     "context" => $context,
 ]);

@@ -54,7 +54,7 @@ class restore_completionboard_activity_structure_step extends restore_activity_s
     protected function process_completionboard($data) {
         global $DB;
 
-        $data = (object) $data;
+        $data = (object)$data;
         $data->course = $this->get_courseid();
 
         $newitemid = $DB->insert_record("completionboard", $data);
@@ -70,7 +70,7 @@ class restore_completionboard_activity_structure_step extends restore_activity_s
     protected function process_completionboard_entry($data) {
         global $DB;
 
-        $data = (object) $data;
+        $data = (object)$data;
         $data->completionboardid = $this->get_new_parentid("completionboard");
         $data->userid = $this->get_mappingid("user", $data->userid, 0);
 

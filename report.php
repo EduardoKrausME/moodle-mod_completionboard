@@ -22,6 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_completionboard\manager;
+
 require_once("../../config.php");
 require_once($CFG->libdir . "/tablelib.php");
 
@@ -42,7 +44,7 @@ $context = context_module::instance($cm->id);
 require_capability("mod/completionboard:viewreport", $context);
 
 $activity = $DB->get_record("completionboard", ["id" => $cm->instance], "*", MUST_EXIST);
-$manager = new \mod_completionboard\manager($activity, $cm, $course);
+$manager = new manager($activity, $cm, $course);
 $canvalidate = has_capability("mod/completionboard:validate", $context);
 
 $url = new moodle_url("/mod/completionboard/report.php", [

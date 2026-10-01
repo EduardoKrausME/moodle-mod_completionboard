@@ -16,6 +16,9 @@
 
 namespace mod_completionboard\event;
 
+use core\event\base;
+use moodle_url;
+
 /**
  * Validation removed event.
  *
@@ -23,7 +26,7 @@ namespace mod_completionboard\event;
  * @copyright 2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class validation_removed extends \core\event\base {
+class validation_removed extends base {
     /**
      * Initializes the event.
      *
@@ -56,9 +59,9 @@ class validation_removed extends \core\event\base {
     /**
      * Returns the report URL.
      *
-     * @return \moodle_url
+     * @return moodle_url
      */
     public function get_url() {
-        return new \moodle_url("/mod/completionboard/report.php", ["id" => $this->contextinstanceid]);
+        return new moodle_url("/mod/completionboard/report.php", ["id" => $this->contextinstanceid]);
     }
 }

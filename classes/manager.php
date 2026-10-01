@@ -19,6 +19,10 @@ namespace mod_completionboard;
 use cm_info;
 use completion_info;
 use context_module;
+use mod_completionboard\event\completion_marked;
+use mod_completionboard\event\completion_unmarked;
+use mod_completionboard\event\validation_removed;
+use mod_completionboard\event\validation_set;
 use moodle_exception;
 use stdClass;
 
@@ -138,7 +142,7 @@ class manager {
             $DB->update_record("completionboard_entries", $entry);
         }
 
-        $event = \mod_completionboard\event\completion_marked::create([
+        $event = completion_marked::create([
             "objectid" => $entry->id,
             "context" => $this->context,
             "relateduserid" => $userid,
@@ -170,7 +174,7 @@ class manager {
             throw new moodle_exception("cannotunmarkvalidated", "completionboard");
         }
 
-        $event = \mod_completionboard\event\completion_unmarked::create([
+        $event = completion_unmarked::create([
             "objectid" => $entry->id,
             "context" => $this->context,
             "relateduserid" => $userid,
@@ -208,7 +212,7 @@ class manager {
         $entry->timemodified = time();
         $DB->update_record("completionboard_entries", $entry);
 
-        $event = \mod_completionboard\event\validation_set::create([
+        $event = validation_set::create([
             "objectid" => $entry->id,
             "context" => $this->context,
             "relateduserid" => $userid,
@@ -241,7 +245,7 @@ class manager {
         $entry->timemodified = time();
         $DB->update_record("completionboard_entries", $entry);
 
-        $event = \mod_completionboard\event\validation_removed::create([
+        $event = validation_removed::create([
             "objectid" => $entry->id,
             "context" => $this->context,
             "relateduserid" => $userid,

@@ -22,6 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_completionboard\manager;
+
 require_once("../../config.php");
 
 $id = required_param("id", PARAM_INT);
@@ -38,7 +40,7 @@ require_course_login($course, true, $rawcm);
 $cm = get_fast_modinfo($course)->get_cm($id);
 $context = context_module::instance($cm->id);
 $activity = $DB->get_record("completionboard", ["id" => $cm->instance], "*", MUST_EXIST);
-$manager = new \mod_completionboard\manager($activity, $cm, $course);
+$manager = new manager($activity, $cm, $course);
 
 switch ($action) {
     case "complete":
