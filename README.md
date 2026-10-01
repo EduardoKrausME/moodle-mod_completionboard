@@ -1,33 +1,18 @@
 # mod_completionboard
 
-Completion board is a lightweight Moodle activity for real-world tasks that do not require a file submission.
+Completion Board is a lightweight Moodle activity for real-world tasks that do not require a file submission.
 
-A student marks the activity as completed. A teacher can later validate that completion from a centralized report.
+A student marks the task as completed and a teacher can later validate that completion from a centralized report.
 
-Typical uses include:
-
-- laboratory work;
-- in-person demonstrations;
-- practical activities;
-- equipment setup;
-- attendance-like practical checkpoints;
-- tasks completed outside Moodle that only need acknowledgement and validation.
+Typical uses include laboratory work, in-person demonstrations, practical activities, equipment setup, practical
+attendance checkpoints and tasks completed outside Moodle that only need acknowledgement and validation.
 
 ## Workflow
 
-1. The teacher creates a Completion board activity.
+1. The teacher creates a Completion Board activity.
 2. The student opens it and marks **Completed**.
 3. The teacher opens the report and marks the completion as **Validated**.
-4. Moodle activity completion can be configured to require either the student mark, teacher validation, or both.
+4. Moodle activity completion can require the student mark, teacher validation or both.
 
-## Requirements
-
-Moodle 4.5 or later.
-
-## Installation
-
-Copy the `completionboard` directory to `mod/completionboard` and complete the Moodle upgrade process.
-
-## License
-
-GNU GPL v3 or later.
+This separates the learner's declaration from the teacher's confirmation, which is useful when the actual work happens
+away from the Moodle screen but still needs to be tracked inside the course.
