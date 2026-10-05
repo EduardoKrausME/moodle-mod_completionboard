@@ -29,5 +29,27 @@
  * @return bool
  */
 function xmldb_completionboard_upgrade($oldversion) {
+    global $DB;
+
+    $dbman = $DB->get_manager();
+
+    if ($oldversion < 2026100502) {
+        $table = new xmldb_table("completionboard");
+        $field = new xmldb_field(
+            "completionmark",
+            XMLDB_TYPE_INTEGER,
+            "1",
+            null,
+            XMLDB_NOTNULL,
+            null,
+            "1",
+            "introformat"
+        );
+
+        $dbman->change_field_default($table, $field);
+
+        upgrade_mod_savepoint(true, 2026100502, "completionboard");
+    }
+
     return true;
 }

@@ -66,35 +66,43 @@ class custom_completion extends activity_custom_completion {
     /**
      * Returns the custom completion rules enabled for this activity instance.
      *
-     * The persisted activity settings are authoritative here. cm_info custom data can still contain
-     * the previous values immediately after completion settings are changed, which makes validate_rule()
-     * reject a rule that is actually enabled in the database.
+     * During completion-setting changes Moodle can briefly expose cached cm_info data that differs
+     * from the persisted activity record. Consider a rule available when either source marks it
+     * as enabled, which keeps validate_rule() stable across cache rebuilds and runtime validators.
      *
      * @return string[]
      */
     public function get_available_custom_rules(): array {
-        if ((int)$this->cm->completion !== COMPLETION_TRACKING_AUTOMATIC) {
-            return [];
-        }
-
         global $DB;
 
-        $activity = $DB->get_record(
-            "completionboard",
-            ["id" => $this->cm->instance],
-            "id,completionmark,completionvalidated",
-            MUST_EXIST
-        );
-
         $rules = [];
-        if (!empty($activity->completionmark)) {
-            $rules[] = "completionmark";
-        }
-        if (!empty($activity->completionvalidated)) {
-            $rules[] = "completionvalidated";
+        $customdata = (array)$this->cm->get_custom_data();
+        $cachedrules = (array)($customdata["customcompletionrules"] ?? []);
+
+        foreach (self::get_defined_custom_rules() as $rule) {
+            if (!empty($cachedrules[$rule])) {
+                $rules[] = $rule;
+            }
         }
 
-        return $rules;
+        if ((int)$this->cm->completion === COMPLETION_TRACKING_AUTOMATIC) {
+            $activity = $DB->get_record(
+                "completionboard",
+                ["id" => $this->cm->instance],
+                "id,completionmark,completionvalidated"
+            );
+
+            if ($activity) {
+                if (!empty($activity->completionmark)) {
+                    $rules[] = "completionmark";
+                }
+                if (!empty($activity->completionvalidated)) {
+                    $rules[] = "completionvalidated";
+                }
+            }
+        }
+
+        return array_values(array_unique($rules));
     }
 
     /**
