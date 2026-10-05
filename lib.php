@@ -70,8 +70,12 @@ function completionboard_get_coursemodule_info($coursemodule) {
     }
 
     if ($coursemodule->completion == COMPLETION_TRACKING_AUTOMATIC) {
-        $result->customdata["customcompletionrules"]["completionmark"] = $activity->completionmark;
-        $result->customdata["customcompletionrules"]["completionvalidated"] = $activity->completionvalidated;
+        $result->customdata = [
+            "customcompletionrules" => [
+                "completionmark" => (int)$activity->completionmark,
+                "completionvalidated" => (int)$activity->completionvalidated,
+            ],
+        ];
     }
 
     return $result;

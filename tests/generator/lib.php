@@ -15,17 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for the Completion board activity.
+ * Data generator for mod_completionboard tests.
  *
  * @package    mod_completionboard
  * @copyright  2026 Eduardo Kraus {@link https://eduardokraus.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class mod_completionboard_generator extends testing_module_generator {
+    /**
+     * Creates a Completion board activity instance.
+     *
+     * @param array|stdClass|null $record
+     * @param array|null $options
+     * @return stdClass
+     */
+    public function create_instance($record = null, ?array $options = null) {
+        $record = (object)($record ?? []);
 
-defined('MOODLE_INTERNAL') || die;
+        if (!property_exists($record, "completionmark")) {
+            $record->completionmark = 1;
+        }
+        if (!property_exists($record, "completionvalidated")) {
+            $record->completionvalidated = 0;
+        }
 
-$plugin->version = 2026100503;
-$plugin->release = '1.1.5';
-$plugin->component = "mod_completionboard";
-$plugin->requires = 2024100700;
-$plugin->maturity = MATURITY_STABLE;
+        return parent::create_instance($record, $options);
+    }
+}
