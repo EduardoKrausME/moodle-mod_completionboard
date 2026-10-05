@@ -45,6 +45,67 @@ function completionboard_supports($feature) {
 }
 
 /**
+ * Returns cached course module information.
+ *
+ * Custom completion rules must be exposed through customdata so the
+ * Completion API can determine which rules are enabled for this instance.
+ *
+ * @param stdClass $coursemodule Course module record.
+ * @return cached_cm_info|false
+ */
+function completionboard_get_coursemodule_info($coursemodule) {
+    global $DB;
+
+    $fields = "id, name, intro, introformat, completionmark, completionvalidated";
+    $activity = $DB->get_record("completionboard", ["id" => $coursemodule->instance], $fields);
+    if (!$activity) {
+        return false;
+    }
+
+    $result = new cached_cm_info();
+    $result->name = $activity->name;
+
+    if ($coursemodule->showdescription) {
+        $result->content = format_module_intro("completionboard", $activity, $coursemodule->id, false);
+    }
+
+    if ($coursemodule->completion == COMPLETION_TRACKING_AUTOMATIC) {
+        $result->customdata["customcompletionrules"]["completionmark"] = $activity->completionmark;
+        $result->customdata["customcompletionrules"]["completionvalidated"] = $activity->completionvalidated;
+    }
+
+    return $result;
+}
+
+/**
+ * Returns descriptions for the active custom completion rules.
+ *
+ * @param cm_info|stdClass $cm Course module information.
+ * @return array
+ */
+function mod_completionboard_get_completion_active_rule_descriptions($cm) {
+    if (
+        empty($cm->customdata["customcompletionrules"])
+        || $cm->completion != COMPLETION_TRACKING_AUTOMATIC
+    ) {
+        return [];
+    }
+
+    $descriptions = [];
+    $rules = $cm->customdata["customcompletionrules"];
+
+    if (!empty($rules["completionmark"])) {
+        $descriptions[] = get_string("completiondetail:mark", "completionboard");
+    }
+
+    if (!empty($rules["completionvalidated"])) {
+        $descriptions[] = get_string("completiondetail:validated", "completionboard");
+    }
+
+    return $descriptions;
+}
+
+/**
  * Creates a Completion board instance.
  *
  * @param stdClass $data Form data.
