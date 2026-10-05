@@ -60,7 +60,7 @@ class backup_completionboard_activity_structure_step extends backup_activity_str
 
         if ($userinfo) {
             $entry->set_source_table("completionboard_entries", [
-                "completionboardid" => backup::VAR_PARENTID,
+                "completionboardid" => "../../id",
             ]);
         }
 
