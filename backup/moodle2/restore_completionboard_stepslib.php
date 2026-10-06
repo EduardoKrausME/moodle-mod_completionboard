@@ -82,7 +82,9 @@ class restore_completionboard_activity_structure_step extends restore_activity_s
             $data->validatedby = $this->get_mappingid("user", $data->validatedby, 0);
         }
 
-        $DB->insert_record("completionboard_entries", $data);
+        $oldid = $data->id;
+        $newitemid = $DB->insert_record("completionboard_entries", $data);
+        $this->set_mapping("completionboard_entry", $oldid, $newitemid);
     }
 
     /**
