@@ -64,6 +64,9 @@ switch ($action) {
         if (empty($userid)) {
             throw new moodle_exception("missinguserid", "completionboard");
         }
+        if (!groups_user_groups_visible($course, $userid, $cm)) {
+            throw new moodle_exception("notingroup", "completionboard");
+        }
         $manager->validate($userid, $USER->id);
         break;
 
@@ -71,6 +74,9 @@ switch ($action) {
         require_capability("mod/completionboard:validate", $context);
         if (empty($userid)) {
             throw new moodle_exception("missinguserid", "completionboard");
+        }
+        if (!groups_user_groups_visible($course, $userid, $cm)) {
+            throw new moodle_exception("notingroup", "completionboard");
         }
         $manager->unvalidate($userid);
         break;
