@@ -59,9 +59,14 @@ $PAGE->set_context($context);
 $PAGE->set_cm($cm, $course, $activity);
 
 $groupmode = groups_get_activity_groupmode($cm);
+$accessallgroups = has_capability("moodle/site:accessallgroups", $context);
 $groupid = 0;
+$nogroupaccess = false;
 if ($groupmode) {
     $groupid = groups_get_activity_group($cm, true);
+}
+if ($groupmode == SEPARATEGROUPS && !$accessallgroups && empty($groupid)) {
+    $nogroupaccess = true;
 }
 
 $userfields = implode(",", [
@@ -75,7 +80,7 @@ $userfields = implode(",", [
     "u.email",
 ]);
 
-$users = get_enrolled_users(
+$users = $nogroupaccess ? [] : get_enrolled_users(
     $context,
     "mod/completionboard:markcomplete",
     $groupid,
@@ -121,6 +126,9 @@ echo $OUTPUT->heading(get_string("reportfor", "completionboard", format_string($
 
 if ($groupmode) {
     groups_print_activity_menu($cm, $url);
+}
+if ($nogroupaccess) {
+    echo $OUTPUT->notification(get_string("nogroupaccess", "completionboard"), "info");
 }
 
 $summarycontext = [
