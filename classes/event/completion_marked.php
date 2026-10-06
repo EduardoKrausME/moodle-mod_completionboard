@@ -39,6 +39,15 @@ class completion_marked extends base {
     }
 
     /**
+     * Returns the restore mapping for the entry referenced by objectid.
+     *
+     * @return array
+     */
+    public static function get_objectid_mapping() {
+        return ["db" => "completionboard_entries", "restore" => "completionboard_entry"];
+    }
+
+    /**
      * Returns the localized event name.
      *
      * @return string
