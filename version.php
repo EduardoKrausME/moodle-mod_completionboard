@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2026101200;
-$plugin->release = '1.1.7';
+$plugin->version = 2026101500;
+$plugin->release = '1.1.8';
 $plugin->component = "mod_completionboard";
 $plugin->requires = 2024100700;
 $plugin->maturity = MATURITY_STABLE;
